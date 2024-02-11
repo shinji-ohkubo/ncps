@@ -127,3 +127,13 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+datasets/
+
+cloudflared-linux-amd64.deb
+
+examples_mine/halfceeta
+
+examples_mine/ltc_irregularly_sampled_time_pip_editable_local (コピー).py
+
+notebook/Untitled.ipynb
