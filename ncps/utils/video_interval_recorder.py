@@ -18,8 +18,8 @@ IS_OPENCV3_LATER = cv2.__version__.startswith("3.")
 
 from collections import deque
 
-H264_flag = True #SUBARU趙様の h264対応を反映
-#H264_flag = False
+#H264_flag = True
+H264_flag = False
 
 #一定時間の間隔に分割して動画を記録する
 class VideoIntervalRecorder:
