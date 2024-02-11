@@ -14,7 +14,7 @@ logger.setLevel(logging.DEBUG)
 sh = logging.StreamHandler()
 logger.addHandler(sh)
 
-IS_OPENCV3_LATER = cv2.__version__.startswith("3.")
+IS_OPENCV3_LATER = True  # cv2.__version__.startswith("3.")
 
 from collections import deque
 
@@ -24,7 +24,7 @@ H264_flag = False
 #一定時間の間隔に分割して動画を記録する
 class VideoIntervalRecorder:
 
-    def __init__(self,_record_dir,_base_file_name,video_fps,video_intarval_time):
+    def __init__(self,_record_dir,_base_file_name,video_fps,video_intarval_time=60*60*24):
         logger.info("VideoIntervalRecorder init")
         self.record_dir = _record_dir
         #記録フォルダが存在しない場合作成
@@ -51,7 +51,7 @@ class VideoIntervalRecorder:
                 logger.info("video release")
 
     #ビデオの記録
-    def update(self,video_image,now_mmsec):
+    def update(self,video_image,now_mmsec=0):
         if self.video_writer_enable is True:
             #初期化
             if self.video_writer.isOpened() is False:
