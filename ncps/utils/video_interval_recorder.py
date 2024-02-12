@@ -25,11 +25,11 @@ H264_flag = False
 class VideoIntervalRecorder:
 
     def __init__(self,_record_dir,_base_file_name,video_fps,video_intarval_time=60*60*24):
-        logger.info("VideoIntervalRecorder init")
+        #logger.info("VideoIntervalRecorder init")
         self.record_dir = _record_dir
         #記録フォルダが存在しない場合作成
         if not os.path.isdir(self.record_dir):
-            logger.info("make movie dir = {}".format(self.record_dir))
+            #logger.info("make movie dir = {}".format(self.record_dir))
             os.makedirs(self.record_dir)
 
         self.base_file_name = _base_file_name #datetime.now().strftime("%Y-%m-%d-%H-%M-%S")
@@ -48,7 +48,7 @@ class VideoIntervalRecorder:
             if self.video_writer.isOpened():
                 self.video_writer.release()
                 self.video_writer = None
-                logger.info("video release")
+                logger.info(f"video release({self.cur_video_path})")
 
     #ビデオの記録
     def update(self,video_image,now_mmsec=0):
@@ -57,11 +57,11 @@ class VideoIntervalRecorder:
             if self.video_writer.isOpened() is False:
                 width  = video_image.shape[1]
                 height = video_image.shape[0]
-                logger.info("bytes per pixel  = {}".format(video_image.shape[2]))
+                #logger.info("bytes per pixel  = {}".format(video_image.shape[2]))
                 #カラー？モノクロ)？
                 is_color = 0 if video_image.shape[2] == 1 else 1
 
-                logger.info("video initialize ={},{},{}".format(width,height,self.VIDEO_FPS))
+                #logger.info("video initialize ={},{},{}".format(width,height,self.VIDEO_FPS))
                 #http://tessy.org/wiki/index.php?%A5%D3%A5%C7%A5%AA%A4%CE%BD%D0%CE%CF
                 #動画のエンコード
                 if IS_OPENCV3_LATER :
@@ -100,7 +100,7 @@ class VideoIntervalRecorder:
                 if self.video_writer.open(self.cur_video_path,fourcc,self.VIDEO_FPS,(width,height),isColor = is_color):
                     self.video_begin_mmsec = now_mmsec
                     self.video_writer.write(video_image) #最初のフレーム
-                    logger.info("video file open ={}".format(self.cur_video_path))
+                    l#ogger.info("video file open ={}".format(self.cur_video_path))
                 else:
                     logger.error("video writer init fault.disabled video wirte.")
                     self.video_writer_enable = False #video記録はできない
@@ -110,12 +110,12 @@ class VideoIntervalRecorder:
                 elaped_time = ( now_mmsec - self.video_begin_mmsec ) / 1000.0
                 ##logger.info("video time = {} , video_interval={}".format(elaped_time,self.VIDEO_TIME))
                 if self.VIDEO_TIME != 0 and elaped_time > self.VIDEO_TIME:#指定時間がきたら一旦出力する。
-                    logger.info("release video = {}".format(self.cur_video_path))
+                    #logger.info("release video = {}".format(self.cur_video_path))
                     self.video_writer.release()
                     #次のビデオ
                     self.video_part_no = self.video_part_no + 1
                     self.video_writer = cv2.VideoWriter()
-                    logger.info("video change no = {}".format(self.video_part_no))
+                    #logger.info("video change no = {}".format(self.video_part_no))
 
 #==========================================================
 # exif_jpegを出力するスレッド
