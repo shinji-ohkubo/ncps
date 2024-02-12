@@ -100,7 +100,7 @@ class VideoIntervalRecorder:
                 if self.video_writer.open(self.cur_video_path,fourcc,self.VIDEO_FPS,(width,height),isColor = is_color):
                     self.video_begin_mmsec = now_mmsec
                     self.video_writer.write(video_image) #最初のフレーム
-                    l#ogger.info("video file open ={}".format(self.cur_video_path))
+                    #Logger.info("video file open ={}".format(self.cur_video_path))
                 else:
                     logger.error("video writer init fault.disabled video wirte.")
                     self.video_writer_enable = False #video記録はできない
